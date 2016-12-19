@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MdEditor</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/marked@0.3.6"></script>
+    <script src="https://unpkg.com/lodash@4.16.0"></script>
+    <script src="https://unpkg.com/vue@2.1.4/dist/vue.js"></script>
+</head>
+<body onbeforeunload="leaveSave()" >
+<header>
+    <span class="left title">&gt;./_Md Editor </span>
+    <span class="right">By Vue 2.0</span>
+</header>
+<div id="app" class="app">
+    <textarea class="editor" :value="input" @input="update"></textarea>
+    <div class="content" v-html="markdown"></div>
+</div>
+<script>
+    var saveStr = localStorage.getItem('MD_copy');
+    var app = new Vue({
+        el: '#app',
+        data: {
+            input: saveStr
+        },
+        computed: {
+            markdown: function () {
+                return marked(this.input, {
+                    sanitize: true
+                })
+            }
+        },
+        methods: {
+            update: _.debounce(function (e) {
+                this.input = e.target.value
+            }, 400)
+
+        }
+    })
+
+    function leaveSave() {
+        localStorage.setItem('MD_copy',app.input);
+    }
+</script>
+</body>
+</html>

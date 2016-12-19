@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+    <link rel="stylesheet" href="style.css">
+    <title>Tree Menu</title>
+    <script src="https://unpkg.com/lodash@4.16.0"></script>
+    <script src="https://unpkg.com/vue@2.1.4/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <ul><tree :tree="tree"></tree></ul>
+</div>
+<script type="text/x-template" id="treeMenuTemp">
+
+        <li>
+            {{tree.name}}
+            <ul v-if="isFolder">
+                <tree v-for="tree in tree.children" :tree="tree"></tree>
+            </ul>
+        </li>
+
+</script>
+<script>
+    var data = {
+        name: 'My Tree',
+        children: [
+            {name: 'hello'},
+            {name: 'wat'},
+            {
+                name: 'child folder',
+                children: [
+                    {
+                        name: 'child folder',
+                        children: [
+                            {name: 'hello'},
+                            {name: 'wat'}
+                        ]
+                    },
+                    {name: 'hello'},
+                    {name: 'wat'},
+                    {
+                        name: 'child folder',
+                        children: [
+                            {name: 'hello'},
+                            {name: 'wat'}
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+
+    Vue.component('tree', {
+        template: '#treeMenuTemp',
+        props: ['tree'],
+        data: function () {
+            return {
+
+            }
+        },
+        computed: {
+            isFolder: function () {
+                return this.tree.children &&
+                    this.tree.children.length
+            }
+        }
+    })
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            tree: data
+        }
+    })
+</script>
+</body>
+</html>

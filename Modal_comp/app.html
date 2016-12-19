@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Component</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@2.1.4/dist/vue.js"></script>
+</head>
+<body>
+<header>
+    <span class="left title">Modal Component</span>
+</header>
+<div id="app" class="app">
+
+    <button @click="openModal" class="btn">open</button>
+    <my-modal
+            v-on:close="showModal = false"
+            :show-modal="showModal"
+            :data="modalData"></my-modal>
+</div>
+
+<script type="text/x-template" id="modal-template">
+    <transition
+            name="custom-classes-transition"
+            enter-active-class="animated fadeIn"
+            leave-active-class="animated fadeOut">
+        <div class="modal" v-show="showModal">
+            <div class="modal-mask" @click="modalClose"></div>
+            <transition
+                    name="custom-classes-transition"
+                    enter-active-class="animated zoomIn"
+                    leave-active-class="animated zoomOut">
+            <div class="modal-container" v-show="showModal">
+                <div class="modal-header">
+                    <p class="modal-header-text">{{data.title}}</p>
+                </div>
+
+                    <div class="modal-body" >
+                        <p class="modal-body-content">{{data.content}}</p>
+                    </div>
+
+                <div class="modal-bottom">
+                    <button class="modal-btn" v-for="button in data.btn" @click="click(button.action)">
+                        {{button.label}}
+                    </button>
+                </div>
+            </div>
+            </transition>
+        </div>
+    </transition>
+</script>
+
+<script src="app.js"></script>
+</body>
+</html>

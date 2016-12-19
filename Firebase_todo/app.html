@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase_todo</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@2.1.4/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuefire/dist/vuefire.js"></script>
+</head>
+<body>
+<header>
+    <span class="title">FireBase TodoList</span>
+</header>
+<div id="app" class="app">
+    <ul>
+        <li v-for="todo in todos">
+            <p class="text">{{todo['.value']}}</p>
+            <span class="del" @click="removeTodo(todo)">
+                <i class="material-icons">close</i>
+            </span>
+        </li>
+    </ul>
+    <div class="add-wrap">
+        <input type="text" class="add-input" v-model.trim="newTodo">
+        <button @click="addTodo" class="add-btn">add</button>
+    </div>
+</div>
+
+
+<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+<!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
+<script src="app.js"></script>
+
+</body>
+</html>

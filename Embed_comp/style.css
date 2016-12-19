@@ -1,0 +1,41 @@
+* {
+    box-sizing: border-box;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+body {
+    margin: 0;
+}
+
+header {
+    height: 100px;
+    background-color: #f1f1f1;
+    color: #2196F3;
+    line-height: 100px;
+    margin-bottom: 20px;
+    font-weight: 300;
+    padding: 0 2em;
+}
+
+header .title {
+    font-family: Consolas;
+    word-spacing: .2em;
+    font-size: 48px;
+}
+
+.app{
+    width: 600px;
+    margin: 20px auto;
+}
+
+.my-select{
+    min-width: 200px;
+}
+

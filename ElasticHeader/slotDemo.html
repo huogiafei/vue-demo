@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slot Demo</title>
+    <script src="https://unpkg.com/vue@2.1.4/dist/vue.js"></script>
+    <style>
+        .parent {
+        }
+
+        .child {
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <parent>
+        <!--<child-c>
+            <template scope="props">
+                <span>hello from parent</span>
+                <span>{{props.text}}</span>
+            </template>
+        </child-c>-->
+        <child-a slot="a"></child-a>
+        <child-b slot="b"></child-b>
+    </parent>
+</div>
+
+<script id="parent-template" type="text/x-template">
+    <div class="parent">
+        <h1>Parent</h1>
+        <slot name="a"></slot>
+        <p>华丽的分割线</p>
+        <slot name="b"></slot>
+        <slot>Default Slot</slot>
+    </div>
+</script>
+
+<script>
+    Vue.component('parent', {
+        template: '#parent-template'
+    })
+
+    Vue.component('childA', {
+        template: '<p class="child">Child A</p>'
+    })
+
+    Vue.component('childB', {
+        template: '<p class="child">Child B</p>'
+    })
+
+    Vue.component('childC', {
+        template: '<p class="child"><slot text="hello from child"></slot></p>'
+    })
+
+    var app = new Vue({
+        el: '#app'
+    })
+</script>
+</body>
+</html>

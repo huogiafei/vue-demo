@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Table Component</title>
+    <script src="https://unpkg.com/lodash@4.16.0"></script>
+    <script src="https://unpkg.com/vue@2.1.4/dist/vue.js"></script>
+</head>
+<body>
+<header>
+    <span class="title">Vue Components: Table</span>
+</header>
+<div id="app" class="app">
+    <div class="table-wrap">
+        <table-comp :headers="tablePlayer.tableHeaders"
+                    :table-name="tablePlayer.title"
+                    :is-multi-sort="false"
+                    :lists="tablePlayer.tableLists"></table-comp>
+    </div>
+    <div class="table-wrap" style="color:#09e">
+        <table-comp :headers="tableExam.tableHeaders"
+                    :table-name="tableExam.title"
+                    :is-multi-sort="true"
+                    :lists="tableExam.tableLists"></table-comp>
+    </div>
+</div>
+
+<!-- TEMPLATE -->
+<script type="text/x-template" id="tableTemp">
+    <div class="table-comp">
+        <div class="table-comp-header">
+            <i class="left material-icons table-icon">grid_on</i>{{tableName}}
+
+            <div class="right table-comp-search">
+                <input type="text" v-model="searchKeyword" class="">
+                <i class="material-icons table-search-icon">search</i>
+            </div>
+        </div>
+        <table class="c-table">
+            <thead>
+            <tr>
+                <td v-for="(head,index) of headers" @click="sort(index)">
+                    {{head}}
+                    <span :class="['sort-btn-wrap',
+                    {'active': sortData.isMultiSort || sortData.sortCurIndex == index}]">
+                        <i class="material-icons sort-btn"
+                           v-show="sortData.sortOrders[index] == 'asc'">arrow_drop_up</i>
+                        <i class="material-icons sort-btn"
+                           v-show="sortData.sortOrders[index] == 'desc'" style="display: none;">arrow_drop_down</i>
+                    </span>
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="player of sortPlayers">
+                <td v-for="item of player">
+                    {{item}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</script>
+<script>
+    Vue.component('table-comp', {
+        template: '#tableTemp',
+        props: ['tableName', 'headers', 'lists', 'isMultiSort'],
+        data: function () {
+            return {
+                searchKeyword: '',
+                sortData: {
+                    isMultiSort: this.isMultiSort,
+                    sortCurIndex: 0,
+                    sortKey: _.keys(this.lists[0]),
+                    sortOrders: _.fill(Array(_.keys(this.lists[0]).length), 'asc')
+                }
+            }
+        },
+
+        methods: {
+            sort: function (index) {
+                this.sortData.sortCurIndex = index;
+
+                var order = this.sortData.sortOrders[index];
+                var changeOrder =
+                    order == 'asc' ? 'desc' : 'asc';
+                this.sortData.sortOrders.splice(index, 1, changeOrder)
+            },
+
+        },
+        computed: {
+            sortPlayers: function () {
+                var query = this.searchKeyword.toLowerCase();
+                var i = this.sortData.sortCurIndex;
+                var result = this.lists;
+
+                /*kewword filter*/
+                if (query != '') {
+                    result = result.filter(function (list) {
+                        return Object.keys(list).some(function (key) {
+                            return String(list[key]).toLowerCase().indexOf(query) > -1
+                        })
+                    })
+                }
+
+                /*sort*/
+                if (this.sortData.isMultiSort) {
+                    //order by multiply key
+                    var result =
+                        _.orderBy(result, this.sortData.sortKey, this.sortData.sortOrders)
+                }
+                else {
+                    result =
+                        _.orderBy(result, this.sortData.sortKey[i], this.sortData.sortOrders[i]);
+                }
+
+                return result;
+            }
+        }
+    })
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            tablePlayer: {
+                title: 'PG',
+                tableHeaders: ['player', 'team', 'age'],
+                tableLists: [
+                    {
+                        name: 'Kobe Bryant',
+                        team: 'Lakers',
+                        time: '34'
+                    },
+                    {
+                        name: 'Paul',
+                        team: 'Clippers',
+                        time: '32'
+                    },
+                    {
+                        name: 'West Brooks',
+                        team: 'Thunders',
+                        time: '24'
+                    },
+                    {
+                        name: 'Tony Parker',
+                        team: 'Spurs',
+                        time: '35'
+                    },
+                    {
+                        name: 'Steve Curry',
+                        team: 'warriors',
+                        time: '27'
+                    }
+                ]
+            },
+            tableExam:{
+                title: 'Exam Question',
+                tableHeaders: ['require', 'difficult', 'score','No.'],
+                tableLists:[
+                    {
+                        isRequire: true,
+                        lv: 1,
+                        score: 5,
+                        No:1
+                    },
+                    {
+                        isRequire: true,
+                        lv: 3,
+                        score: 10,
+                        No:2
+                    },
+                    {
+                        isRequire: true,
+                        lv: 2,
+                        score: 5,
+                        No:3
+                    },
+                    {
+                        isRequire: false,
+                        lv: 4,
+                        score: 15,
+                        No:4
+                    },
+                    {
+                        isRequire: true,
+                        lv: 1,
+                        score: '2',
+                        No:5
+                    },
+                    {
+                        isRequire: false,
+                        lv: 4,
+                        score: '10',
+                        No:6
+                    },
+                    {
+                        isRequire: false,
+                        lv: 5,
+                        score: '25',
+                        No:7
+                    },
+
+                ]
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+*{
+    box-sizing: border-box;
+}
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}
+body{
+    margin: 0;
+}
+header{
+    height: 100px;
+    background-color: #444;
+    color: #eee;
+    line-height: 100px;
+    margin-bottom: 20px;
+    font-weight: 300;
+    padding: 0 2em;
+}
+
+header .title{
+    font-family:Consolas;
+    word-spacing: .2em;
+    font-size: 48px;
+}
+
+.app{
+    width: 1200px;
+    margin: 0 auto;
+    color: #444;
+}
+
+.table-wrap{
+    color: #dc4341;
+    display: inline-block;
+    border:2px solid currentColor;
+    border-radius: 5px;
+    background: #f3f3f3;
+    padding: 0 20px 30px 20px;
+}
+
+.table-comp {
+
+}
+
+.table-comp-header{
+    position: relative;
+    margin: 10px 0;
+    line-height: 40px;
+    font-size: 24px;
+    color: currentColor;
+}
+
+.table-comp-header .table-icon{
+    margin: 8px 10px 0 0;
+}
+
+.table-comp-search{
+    height: 40px;
+    line-height: 40px;
+}
+
+.table-comp-search input{
+    color: inherit;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid currentColor;
+    opacity: .8;
+    outline: none;
+    font-size: 16px;
+    margin-right: 2px;
+    width: 200px;
+    vertical-align: top;
+    line-height: 40px;
+    height: 40px;
+}
+
+.table-comp-search input:focus{
+    opacity: 1;
+}
+
+.table-comp-search i{
+    vertical-align: middle;
+}
+
+.c-table thead{
+    background-color: currentColor;
+    cursor: pointer;
+}
+
+.c-table thead td{
+    color: #fff;
+}
+
+.c-table tr:nth-child(even){
+    background-color: rgba(255,255,255,.75);
+}
+
+.c-table td{
+    line-height: 40px;
+    padding: 0 1.5em;
+}
+
+.c-table td:first-child{
+    font-weight: bold;
+}
+
+.sort-btn-wrap{
+    opacity: 0.3;
+    transition:opacity .2s ease-in;
+}
+
+.sort-btn-wrap.active{
+    opacity: 1;
+}
+
+.c-table .sort-btn{
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    line-height: 38px;
+    text-align: center;
+    vertical-align: middle;
+}

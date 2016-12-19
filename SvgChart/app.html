@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Chart</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@2.1.4/dist/vue.js"></script>
+</head>
+<body>
+<header>
+    <span class="left title">SVG Chart</span>
+</header>
+<div id="app" class="app">
+    <!-- chart1 Player -->
+    <div class="chart-wrap">
+        <svg width="300" height="300" viewBox="0 0 100 100">
+            <radar :stats="playerData.stats" :degree="playerData.degree"></radar>
+        </svg>
+        <p class="chart-title">流川枫 15-16赛季</p>
+    </div>
+
+    <!-- chart2 Student -->
+    <div class="chart-wrap">
+        <svg width="300" height="300" viewBox="0 0 100 100">
+            <radar :stats="studentData.stats" :degree="studentData.degree"></radar>
+        </svg>
+        <p class="chart-title">小T同学</p>
+        <div class="chart-custom-wrap">
+            <radar-console :stats="studentData.stats"
+                           :mode="studentData.mode"
+                           v-on:add="addProp"
+                           v-on:remove="removeProp"></radar-console>
+        </div>
+
+    </div>
+
+
+    <!-- chart2 Student -->
+    <div class="chart-wrap">
+        <svg width="300" height="300" viewBox="0 0 100 100">
+            <radar :stats="pcData.stats" :degree="pcData.degree"></radar>
+        </svg>
+        <p class="chart-title">办公室PC性能</p>
+
+        <div class="chart-custom-wrap">
+            <radar-console :stats="pcData.stats"
+                           :mode="pcData.mode"
+                           v-on:add="addProp"
+                           v-on:remove="removeProp"></radar-console>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- rader label -->
+<script type="text/x-template" id="radarLabel-template">
+    <g class="radar-label">
+        <text v-for="item in labelPoints"
+              :x="item.x" :y="item.y" class="chart-label-value">
+            {{item.value}}
+        </text>
+        <text v-for="item in labelPoints"
+              :x="item.x" :y="item.y" dy="6px" class="chart-label-text">
+            {{item.label}}
+        </text>
+    </g>
+
+</script>
+
+<!-- rader background -->
+<script type="text/x-template" id="radarBg-template">
+    <g class="radar-bg">
+        <polygon v-for="item in bgShape" :points="item" class="chart-bg"/>
+        <polyline v-for="item in bgLine" :points="item" class="chart-bg-line"></polyline>
+        <circle cx="50" cy="50" r="1" class="chart-bg-center"></circle>
+    </g>
+</script>
+
+<!-- rader value -->
+<script type="text/x-template" id="radarMain-template">
+    <g class="radar">
+        <radar-bg :degree="degree" :stats="stats"></radar-bg>
+        <polygon :points="valuePoints.polygonStr" class="chart"/>
+        <axis-label :stats="stats"></axis-label>
+    </g>
+</script>
+
+<!-- radar custom console -->
+<script type="text/x-template" id="radarConsole-template">
+    <div class="chart-console">
+        <div class="chart-console-row" v-for="(item,index) in stats" >
+            <label>{{item.label}}</label>
+            <input type="range" v-model="item.data">
+            <span>{{item.data}}</span>
+            <span v-if="mode == 'edit'" @click="remove(index)" class="chart-console-del">
+                 <i class="material-icons">close</i>
+            </span>
+
+        </div>
+        <div class="chart-console-bottom" v-if="mode == 'edit'" @keyup.enter="add">
+            <input type="text" class="chart-console-add" v-bind:value="newProp" v-on:input="updateProp($event.target.value)">
+            <button @click="add" class="chart-console-btn">
+                <i class="material-icons">add</i>
+            </button>
+        </div>
+    </div>
+</script>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elastic Header</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/dynamics.js@1.1.5"></script>
+    <script src="https://unpkg.com/vue@2.1.4/dist/vue.js"></script>
+
+</head>
+<body>
+<header>
+    <span class="left title">~Elastic Header~</span>
+</header>
+
+<div id="app" class="app" @touchmove.prevent>
+    <div class="darggable-container">
+        <draggable-header
+                :header-height="header.height"
+                :header-color="header.color">
+            <template slot="header">
+                <h1 class="header-title">Elastic Draggable SVG Header</h1>
+                <p class="header-desc">By Vue.js & Dynamics.js</p>
+            </template>
+            <template slot="content">
+                <section>
+                    <p>Note this is just an effect demo - there are of course many additional details if you want to use
+                        this in production, e.g. handling responsive sizes, reload threshold and content scrolling.
+                        Those
+                        are out of scope for this quick little hack. However, the idea is that you can hide them as
+                        internal
+                        details of a Vue.js component and expose a simple Web-Component-like interface.</p>
+                </section>
+            </template>
+
+        </draggable-header>
+    </div>
+</div>
+
+<!-- template -->
+<script type="text/x-template" id="header-view-template">
+    <div class="header-view"
+         @mousedown="dragStart" @touchstart="dragStart"
+         @mousemove="dragOn" @touchmove="dragOn"
+         @mouseup="dragStop" @touchend="dragStop" @mouseleave="dragStop">
+        <svg class="bg" :height="headerHeight * 2">
+            <path :d="headerPath" :fill="headerColor"></path>
+            <circle class="header-view-circle" r="10" fill="rgba(0,0,0,.3)" :cy="dotY" ></circle>
+        </svg>
+        <div class="app-header">
+            <slot name="header"></slot>
+        </div>
+        <main class="app-container" :style="contentPosition">
+            <slot name="content"></slot>
+        </main>
+    </div>
+</script>
+
+<script src="app.js"></script>
+</body>
+</html>

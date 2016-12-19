@@ -1,0 +1,157 @@
+* {
+    box-sizing: border-box;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+body {
+    margin: 0;
+}
+
+header {
+    height: 100px;
+    background-color: #183654;
+    color: #eec73c;
+    line-height: 100px;
+    margin-bottom: 20px;
+    font-weight: 300;
+    padding: 0 2em;
+}
+
+header .title {
+    font-family: Consolas;
+    word-spacing: .2em;
+    font-size: 48px;
+}
+
+.chart-wrap {
+    display: block;
+    width: 301px;
+    padding: 0 1px 0 0;
+    float: left;
+    margin: 10px;
+    background: #f9f9f9;
+    border:1px solid #ddd;
+}
+
+.chart {
+    fill: rgba(255, 204, 17, 0.55);
+    stroke: #fc1;
+    stroke-width: .8;
+}
+
+.chart-title{
+    text-align: center;
+    font-size: 16px;
+    color: #006095;
+    clear: both;
+}
+
+
+.chart-label-value{
+    font-size: 5px;
+    fill: #006095;
+    text-anchor:middle
+}
+
+.chart-label-text{
+    font-size: 5px;
+    fill: #666;
+    text-anchor:middle
+}
+
+.chart-bg{
+    fill:none;
+    stroke: rgba(153, 153, 153, 0.5);
+    stroke-width: .5;
+}
+
+.chart-bg-line{
+    stroke: rgba(153, 153, 153, 0.5);
+    stroke-dasharray: 2 2 ;
+    stroke-width: .7;
+    fill: none;
+}
+
+.chart-bg-center {
+    fill: rgba(153, 153, 153, 0.5);
+    stroke: none
+}
+
+.chart-custom-wrap{
+    padding: 20px;
+    float: left;
+    width: 100%;
+}
+
+.chart-console-row{
+    height: 40px;
+    line-height: 40px;
+}
+
+.chart-console-del{
+    cursor: pointer;
+    display: inline-block;
+    color: #dc4341;
+    width: 40px;
+    border-radius: 50%;
+    text-align: center;
+    float: right;
+}
+
+.chart-console-del i {
+    vertical-align: bottom;
+    line-height: 40px;
+}
+
+.chart-console-add{
+    height: 40px;
+    line-height: 40;
+    font-size: 14px;
+    color: #444;
+    padding: 0 10px;
+    margin-top: 10px;
+    border:1px solid #ddd;
+}
+
+.chart-console-btn{
+    border:none;
+    color: #0099ee;
+    background-color: transparent;
+    float: right;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.chart-console-btn i{
+    vertical-align: bottom;
+    line-height: 40px;
+}
+
+/*  custom input[type = range]  */
+input[type="range"] {
+    -webkit-box-shadow: 0 1px 0 0 #d3d3d3;
+    margin-top: 2px;
+    background-color: #b7dbe1;
+    border-radius: 15px;
+    width:calc(100% - 120px);
+    -webkit-appearance: none;
+    height:10px;
+    outline:none;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    cursor: default;
+    height: 16px;
+    width: 16px;
+    background: none repeat scroll 0 0 #006095;
+    border-radius: 50%;
+    outline:none;
+}
+

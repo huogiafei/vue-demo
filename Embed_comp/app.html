@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>embed component: JQuery + Select2</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/jquery@3.1.1"></script>
+    <link rel="stylesheet" href="https://unpkg.com/select2@4.0.3/dist/css/select2.min.css">
+    <script src="https://unpkg.com/select2@4.0.3"></script>
+    <script src="https://unpkg.com/vue@2.1.4/dist/vue.js"></script>
+</head>
+<body>
+<header>
+    <span class="left title">Vue.js + JQuery + Select2</span>
+</header>
+
+<div id="app" class="app">
+    <p>Choose: {{singleChooseVal}}</p>
+    <my-select :options="singleData"
+               v-on:ab="selectShow"
+               :selected-index="1">
+    </my-select>
+</div>
+
+<script type="text/x-template" id="select-template">
+    <select class="my-select">
+        <option value="0" disabled>Select one </option>
+        <option v-for="(option,index) in options"
+                v-on:click="select(index)"
+                :selected="selectedIndex == index"
+                :value="option.val">{{option.label}}</option>
+    </select>
+</script>
+
+<script src="app.js"></script>
+</body>
+</html>
