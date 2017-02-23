@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>loading btn</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@2.1.4/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-resource@1.2.0/dist/vue-resource.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>Vue Component : Loading Btn</h1>
+    <loading-btn :label="btnLabel" :is-loading="isLoad"
+                 v-on:submit="getInfo"></loading-btn>
+</div>
+
+
+<script type="text/x-template" id="loadingBtn">
+    <button>
+        <span class="lb-text" @click="submit" v-show="!isLoading">{{label}}</span>
+        <span class="lb-icon" v-show="isLoading"></span>
+    </button>
+</script>
+
+
+<script src="app.js"></script>
+</body>
+</html>
